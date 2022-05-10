@@ -21,5 +21,6 @@ body {
 }
 #app {
   font-family: 'Noto Sans KR', sans-serif;
+  min-width: 30rem;
 }
 </style>

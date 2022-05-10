@@ -1,6 +1,6 @@
 {
-    "name": "Vue extension",
-    "description": "My extension app made by Vue.js",
+    "name": "D2R Uber Diablo",
+    "description": "D2R Uber Diablo Status by Server",
     "version": "0.0.1",
     "manifest_version": 3,
     "action": {

@@ -1,58 +1,69 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+  <div class="title">D2R 우버디아 현황</div>
+
+  <div class="content">
+    <div class="server">
+      <div class="server_title">
+        <el-icon class="title_icon"><caret-right /></el-icon>
+        Ladder - Asia
+      </div>
+      <div class="uber_bar">
+        <el-progress :percentage="percentage" :text-inside="true" :stroke-width="30" :color="colors">
+          <span>{{ value }} / {{ max }}</span>
+        </el-progress>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
+  name: 'TheHome',
+  data () {
+    return {
+      value: 6,
+      max: 6,
+      colors: [
+        { color: '#1989fa', percentage: 50 },
+        { color: '#e6a23c', percentage: 70 },
+        { color: '#f56c6c', percentage: 100 },
+      ]
+    }
+  },
+  computed: {
+    percentage () {
+      return (this.value / this.max * 100).toFixed(2)
+    }
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e2e2e2;
+  text-align: center;
+  color: #e2e2e2;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+
+.content {
+  position: relative;
+  padding: 0.5rem 1rem;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+
+.content .server {
+  margin-top: 1rem;
 }
-a {
-  color: #42b983;
+
+.content .server .server_title {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #e2e2e2;
+  padding-bottom: 0.5rem;
+}
+
+.content .server .server_title .title_icon {
+  top: 0.1rem;
 }
 </style>

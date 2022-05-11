@@ -30,16 +30,16 @@ export default {
       colors: [
         { color: '#1989fa', percentage: 50 },
         { color: '#e6a23c', percentage: 70 },
-        { color: '#f56c6c', percentage: 100 },
+        { color: '#f56c6c', percentage: 100 }
       ],
       apiData: null
     }
   },
   computed: {
-    ...mapGetters(['getUberList']),
+    ...mapGetters(['getUberList'])
   },
   methods: {
-    ...mapActions(['callUberApi']),
+    ...mapActions(['callUberApi'])
   },
   mounted () {
     this.callUberApi()

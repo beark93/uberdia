@@ -2,6 +2,7 @@ import { createStore } from 'vuex'
 import axios from "axios";
 
 const d2rApi = axios.create({
+    baseURL: process.env.VUE_UBER_API_BASE_URL,
     timeout: 120000,
     withCredentials: true,
     headers: {
@@ -70,7 +71,7 @@ export default createStore({
     actions: {
         async callUberApi({ commit }) {
             try {
-                const data = await d2rApi.get('/api')
+                const data = await d2rApi.get()
                 commit('SET_UBERDATA', data.data)
             } catch (error) {
                 alert(error)

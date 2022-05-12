@@ -73,6 +73,7 @@ export default createStore({
     actions: {
         async callUberApi({ commit }) {
             try {
+                console.log(process.env.NODE_ENV)
                 const path = process.env.NODE_ENV === 'production' ? '' : (process.env.NODE_ENV === 'staging' ? '/proxy' : '/api')
                 const data = await d2rApi.get(path)
                 commit('SET_UBERDATA', data.data)

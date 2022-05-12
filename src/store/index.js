@@ -2,13 +2,14 @@ import { createStore } from 'vuex'
 import axios from "axios";
 
 const d2rApi = axios.create({
-    baseURL: process.env.VUE_UBER_API_BASE_URL,
+    baseURL: process.env.VUE_APP_UBER_API_BASE_URL,
     timeout: 120000,
     withCredentials: true,
     headers: {
         "Content-Type": 'application/json'
     }
 })
+
 
 const regions = [
     { value: "1", text: 'America' },

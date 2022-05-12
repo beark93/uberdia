@@ -3,7 +3,7 @@
 
   <div class="content">
     <div class="server" v-if="getUberList">
-      <div class="lists" v-for="(uberList, index) in getUberList" :key="`${index}`">
+      <div class="lists" v-for="(uberList, index) in getUberList" :key="index">
         <div class="server_title">
           <el-icon class="title_icon"><caret-right /></el-icon>
           {{ uberList.title }}

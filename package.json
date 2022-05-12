@@ -5,7 +5,7 @@
     "scripts": {
         "serve": "vue-cli-service serve --mode development --port 8081",
         "build": "vue-cli-service build --mode production",
-        "extention": "vue-cli-service build --mode extention",
+        "build-staging": "vue-cli-service build --mode staging",
         "lint": "vue-cli-service lint"
     },
     "dependencies": {

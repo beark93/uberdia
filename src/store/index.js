@@ -2,11 +2,12 @@ import { createStore } from 'vuex'
 import axios from "axios";
 
 const d2rApi = axios.create({
-    baseURL: process.env.VUE_APP_UBER_API_BASE_URL,
+    baseURL: process.env.NODE_ENV === 'extention' ? 'https://diablo2.io/dclone_api.php' : '',
     timeout: 120000,
     withCredentials: true,
     headers: {
-        "Content-Type": 'application/json'
+        "Content-Type": 'application/json',
+        "Access-Control-Allow-Origin": '*'
     }
 })
 
@@ -72,7 +73,7 @@ export default createStore({
     actions: {
         async callUberApi({ commit }) {
             try {
-                const path = process.env.NODE_ENV === 'production' ? '' : '/api'
+                const path = process.env.NODE_ENV === 'extention' ? '' : (process.env.NODE_ENV === 'production' ? '/proxy' : 'api')
                 const data = await d2rApi.get(path)
                 commit('SET_UBERDATA', data.data)
             } catch (error) {

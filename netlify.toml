@@ -1,0 +1,5 @@
+[[redirects]]
+from = "/proxy/*"
+to = "https://diablo2.io/dclone_api.php:splat"
+status = 200
+force = true

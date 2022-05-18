@@ -1,15 +1,22 @@
 <template>
-  <div class="title">D2R 우버디아 현황</div>
+  <div class="title">
+    D2R Uber Diablo Status
+    <el-icon class="reload" @click="uberReload"><RefreshRight /></el-icon>
+  </div>
 
   <div class="content">
-    <div class="server" v-if="getUberList">
-      <div class="lists" v-for="(uberList, index) in getUberList" :key="index">
+    <div class="tab">
+      <div class="tab_list" @click="tabChange('1')" :class="(tab === '1') ? 'active' : ''">Ladder</div>
+      <div class="tab_list" @click="tabChange('2')" :class="(tab === '2') ? 'active' : ''">Non Ladder</div>
+    </div>
+    <div class="server" v-if="displayUberList">
+      <div class="lists" v-for="(uberList, index) in displayUberList" :key="index">
         <div class="server_title">
           <el-icon class="title_icon"><caret-right /></el-icon>
           {{ uberList.title }}
         </div>
         <div class="uber_bar">
-          <el-progress :percentage="uberList.percentage" :text-inside="true" :stroke-width="30" :color="colors">
+          <el-progress :percentage="uberList.percentage" :text-inside="true" :stroke-width="25" :color="colors">
             <span>{{ uberList.progress }} / 6</span>
           </el-progress>
         </div>
@@ -32,14 +39,28 @@ export default {
         { color: '#e6a23c', percentage: 70 },
         { color: '#f56c6c', percentage: 100 }
       ],
-      apiData: null
+      apiData: null,
+      tab: '1'
     }
   },
   computed: {
-    ...mapGetters(['getUberList'])
+    ...mapGetters(['getUberList']),
+    displayUberList () {
+      if (this.getUberList && this.getUberList.length > 0) {
+        return this.getUberList.filter(item => item.ladder === this.tab)
+      }
+      return []
+    }
   },
   methods: {
-    ...mapActions(['callUberApi'])
+    ...mapActions(['callUberApi', 'clearUberList']),
+    tabChange (tab) {
+      this.tab = tab
+    },
+    async uberReload () {
+      await this.clearUberList() 
+      await this.callUberApi()
+    }
   },
   mounted () {
     this.callUberApi()
@@ -48,7 +69,8 @@ export default {
 </script>
 <style scoped>
 .title {
-  font-size: 1.5rem;
+  position: relative;
+  font-size: 2rem;
   font-weight: bold;
   padding: 0.5rem 0;
   border-bottom: 1px solid #e2e2e2;
@@ -56,9 +78,52 @@ export default {
   color: #e2e2e2;
 }
 
+.title .reload {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  width: 2rem;
+  height: 2rem;
+}
+
 .content {
   position: relative;
   padding: 0.5rem 1rem;
+}
+
+.content .tab {
+  position: relative;
+  overflow: auto;
+  width: 100%;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-align: center;
+  color: #aaaaaa;
+}
+
+.content .tab .tab_list {
+  position: relative;
+  box-sizing: border-box;
+  width: 50%;
+  float: left;
+  padding: 0.5rem 0;
+}
+
+.content .tab .tab_list.active {
+  color: #ea2525;
+}
+
+.content .tab .tab_list:first-child:after {
+  position: absolute;
+  top: 50%;
+  right: 0px;
+  z-index: 1;
+  display: block;
+  width: 1px;
+  height: 25px;
+  content: "";
+  transform: translateY(-50%);
+  background-color: #e2e2e2;
 }
 
 .content .server {

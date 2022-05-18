@@ -17,10 +17,6 @@ const regions = [
     { value: "2", text: 'Europe' },
     { value: "3", text: 'Asia' },
 ]
-const ladders = [
-    { value: "1", text: 'Ladder' },
-    { value: "2", text: 'Non-Ladder' },
-]
 
 const difficultys = [
     { value: "1", text: 'HardCore' },
@@ -60,7 +56,7 @@ export default createStore({
             }
             return UberList.map(uber => {
                 uber.percentage = parseInt((parseInt(uber.progress) / 6 * 100).toFixed(2))
-                uber.title = ladders.filter(item => item.value === uber.ladder)[0].text + " - " + regions.filter(item => item.value === uber.region)[0].text + " : " + difficultys.filter(item => item.value === uber.hc)[0].text
+                uber.title = regions.filter(item => item.value === uber.region)[0].text + " : " + difficultys.filter(item => item.value === uber.hc)[0].text
                 return uber
             })
         }
@@ -68,18 +64,23 @@ export default createStore({
     mutations: {
         SET_UBERDATA(state, data) {
             state.uberData = data
+        },
+        CLEAR_UBERDATA(state) {
+            state.uberData = defaultUberData
         }
     },
     actions: {
         async callUberApi({ commit }) {
             try {
-                console.log(process.env.NODE_ENV)
                 const path = process.env.NODE_ENV === 'production' ? '' : '/proxy'
                 const data = await d2rApi.get(path)
                 commit('SET_UBERDATA', data.data)
             } catch (error) {
                 alert(error)
             }
+        },
+        async clearUberList({ commit }) {
+            commit('CLEAR_UBERDATA')
         }
     }
 })

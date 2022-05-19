@@ -84,6 +84,7 @@ export default {
   right: 18px;
   width: 2rem;
   height: 2rem;
+  cursor: pointer;
 }
 
 .content {
@@ -107,6 +108,7 @@ export default {
   width: 50%;
   float: left;
   padding: 0.5rem 0;
+  cursor: pointer;
 }
 
 .content .tab .tab_list.active {

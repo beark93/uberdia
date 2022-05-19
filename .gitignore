@@ -24,3 +24,6 @@ pnpm-debug.log*
 
 # Api Test
 .test.http
+
+# Build zip File
+dist.zip
